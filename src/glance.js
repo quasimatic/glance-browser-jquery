@@ -1,13 +1,15 @@
-import glanceSelector from 'glance-selector';
+import GlanceCommon from "glance-common";
+import JQueryAdapter from "./jquery-adapter";
 
-export default class Glance {
-    static url(address){
-        document.location.href = address;
-        return this;
-    }
-
-    static click(selector) {
-        glanceSelector(selector).click();
-        return this;
+export default class Glance extends GlanceCommon {
+    constructor(config = {}) {
+        config.browser = new JQueryAdapter();
+        super(config);
     }
 }
+
+window.Glance = Glance
+
+window.addEventListener("unhandledrejection", function(err, promise) {
+    glance.catch();
+});
